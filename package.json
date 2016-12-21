@@ -1,0 +1,28 @@
+{
+  "name": "in-da-game",
+  "version": "1.0.0",
+  "description": "A game platform for some favourite games.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DjagaScript-theRest/In-Da-Game.git"
+  },
+  "author": "DjagaScript-theRest",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DjagaScript-theRest/In-Da-Game/issues"
+  },
+  "homepage": "https://github.com/DjagaScript-theRest/In-Da-Game#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.7.3",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  }
+}
