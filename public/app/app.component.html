@@ -1,0 +1,27 @@
+<div>
+    <nav class="navbar navbar-light bg-faded">
+        <a class="navbar-brand" href="#">Logo</a>
+        <ul class="nav navbar-nav">
+            <li class="nav-item active">
+                <a [routerLink]="['/home']" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Best</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Daily challenge</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Weekly challenge</a>
+            </li>
+
+        </ul>
+        <form class="form-inline float-xs-right">
+            <input class="form-control" type="text" placeholder="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </nav>
+    <div class='container'>
+        <router-outlet></router-outlet>
+    </div>
+</div>
