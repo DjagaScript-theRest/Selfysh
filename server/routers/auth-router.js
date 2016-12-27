@@ -4,16 +4,14 @@
 const passport = require('passport');
 const router = require('express').Router();
 
-module.exports = function({ data, app, encryption, userMiddleware }) {
-    const authController = require('../controllers/auth-controller')({ data, encryption });
+module.exports = function ({  app, controllers }) {
+    const authController = controllers.auth;
 
     router
-        .get('/login', authController.getLogin)
-        .get('/register', authController.getRegister)
-        .post('/login', passport.authenticate('local'), authController.login)
+        .post('/login', authController.login)
         .post('/register', authController.register)
-        .post('/logout', authController.logout);
+        .post('/logout', authController.logout)
+        .get('/getLoggedUser', authController.getLoggedUser);
 
-    app.use(userMiddleware.hasLoggedUser);
-    app.use('/auth', router);
+    app.use('/api/auth', router);
 };

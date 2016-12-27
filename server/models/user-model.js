@@ -1,41 +1,97 @@
+/* globals module, require */
+
 'use strict';
 
-let mongoose = require('mongoose');
-let encryption = require('./../utils/encryption');
+const mongoose = require('mongoose');
+const encryption = require('../utilities/encryption');
+const fieldsValidator = require('./utils/validator');
 
-let Schema = mongoose.Schema;
+const MinUsernameLength = 3;
+const MaxUsernameLength = 20;
 
-const userSchema = new Schema({
+function hasRole(user, role) {
+    return user.roles.indexOf(role.toLowerCase()) >= 0;
+}
+
+const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        require: true,
-        unique: true
+        required: true,
+        unique: true,
+        validate: {
+            validator: function (value) {
+                return fieldsValidator.validateLength(value, MinUsernameLength, MaxUsernameLength);
+            },
+            message: '{VALUE} is not a valid username!'
+        }
     },
     passHash: {
         type: String,
-        required: true,
-        unique: true
+        required: true
+    },
+    email: {
+        type: String,
+        unique: true,
+        validate: {
+            validator: function (value) {
+                let pattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return pattern.test(value);
+            },
+            message: '{VALUE} is not a valid email!'
+        }
     },
     salt: {
         type: String,
-        require: true,
-        unique: true
+        required: true
+    },
+    avatar: {
+        type: String,
+        default: '58446e0a2374e32570d0fb06'
+    },
+    roles: [String],
+    isDeleted: Boolean,
+    newsfeed: [{}]
+});
+
+userSchema.virtual('fullname').get(function () {
+    let fullname = `${this.firstname} ${this.lastname}`;
+    return fullname;
+});
+
+userSchema.virtual('isAdmin').get(function () {
+    return hasRole(this, 'admin');
+});
+
+userSchema.method({
+    authenticate: function (password) {
+        let inputHashedPassword = encryption.generateHashedPassword(this.salt, password);
+
+        if (inputHashedPassword === this.passHash) {
+            return true;
+        }
+
+        return false;
     }
 });
 
 userSchema.method({
-    generatePassHash(password) {
-        let salt = encryption.generateSalt();
-        let passHash = encryption.generateHashedPassword(salt, password);
-        this.passHash = passHash;
+    assignRole: function (role) {
+        let roleToLower = role.toLowerCase();
+        if (!hasRole(this, roleToLower)) {
+            this.roles.push(roleToLower);
+        }
     },
-    authenticate(password) {
-        let passHashToBeVerified = encryption.generateHashedPassword(this.salt, password);
-        let isValid = this.passHash === passHashToBeVerified;
-        return isValid;
+    removeRole: function (role) {
+        let roleToLower = role.toLowerCase();
+        if (hasRole(this, roleToLower)) {
+            this.roles.splice(this.roles.indexOf(roleToLower), 1);
+        }
+    },
+    generatePassHash: function (password) {
+        let inputHashedPassword = encryption.generateHashedPassword(this.salt, password);
+        return inputHashedPassword;
     }
 });
 
 mongoose.model('User', userSchema);
-
 module.exports = mongoose.model('User');

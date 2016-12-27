@@ -43,7 +43,7 @@ module.exports = function ({data, encryption, passport}) {
                         return;
                     }
 
-                    let token = jwt.sign(user, 'magicstring', {
+                    let token = jwt.sign(user, 'sheit', {
                         expiresIn: 7200 // 2 hours in seconds
                     });
                     res.status(200).json({

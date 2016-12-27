@@ -1,50 +1,61 @@
+/* globals module, require */
 'use strict';
 
-module.exports = function ({ User }) {
-    return {
-        filterUsers(filter, page, perPage) {
-            filter = filter || {};
-            page = page || 0;
-            perPage = perPage || 0;
-            return new Promise((resolve, reject) => {
-                User.find(filter)
-                    .skip(page * perPage)
-                    .limit(perPage)
-                    .exec((err, users) => {
-                        if (err) {
-                            return reject(err);
-                        }
+module.exports = (models) => {
+    const { User } = models;
 
-                        return resolve(users);
-                    });
+    return {
+        getUserById(userId) {
+            return new Promise((resolve, reject) => {
+                User.findOne({ _id: userId }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(user);
+                });
             });
         },
-        getUserById(id) {
-            if (!id) {
-                return Promise.reject('Id should be provided!');
-            }
-
+        getByEmail(email) {
             return new Promise((resolve, reject) => {
-                this.filterUsers({ '_id': id })
-                    .then((users) => {
-                        resolve(users[0]);
-                    }, (err) => {
-                        reject(err);
-                    });
+                User.findOne({ email }, (err, user) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(user);
+                });
             });
         },
         getByUsername(username) {
-            if (!username) {
-                return Promise.reject('Username should br provided!');
-            }
+            return new Promise((resolve, reject) => {
+                User.findOne({ username: username }, (err, user) => {
+
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
+        createUser(username, passHash, email, salt) {
+            let user = new User({
+                username: username,
+                passHash: passHash,
+                email: email,
+                salt: salt,
+                roles: ['regular']
+            });
 
             return new Promise((resolve, reject) => {
-                this.filter({ username })
-                    .then((users) => {
-                        resolve(users[0]);
-                    }, (err) => {
-                        reject(err);
-                    });
+                user.save((err) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(user);
+                });
             });
         }
     };
