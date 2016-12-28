@@ -7,14 +7,10 @@ const mongoose = require('mongoose');
 const encryption = require('../utilities/encryption');
 const fieldsValidator = require('./utils/validator');
 
-const ImagePost = require('./image-post-model');
+const { imagePostSchema } = require('./image-post-model');
 
 const MinUsernameLength = 3;
 const MaxUsernameLength = 20;
-
-function hasRole(user, role) {
-    return user.roles.indexOf(role.toLowerCase()) >= 0;
-}
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -52,7 +48,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: '58446e0a2374e32570d0fb06'
     },
-    imagePosts: [{ ImagePost }]
+    imagePosts: [imagePostSchema]
 });
 
 userSchema.virtual('fullname').get(function () {

@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const Image = require('./image-model');
+const { imageSchema } = require('./image-model');
 
 const authorSchema = mongoose.Schema({
     username: {
@@ -17,16 +17,13 @@ const authorSchema = mongoose.Schema({
     }
 });
 
-mongoose.model('AuthorSchema', authorSchema);
-const Author = mongoose.model('AuthorSchema');
-
 const imagePostSchema = mongoose.Schema({
     image: {
-        type: Image,
+        type: imageSchema,
         required: true
     },
     author: {
-        type: Author,
+        type: authorSchema,
         required: true
     },
     likes: {
@@ -40,4 +37,7 @@ const imagePostSchema = mongoose.Schema({
 });
 
 mongoose.model('ImagePost', imagePostSchema);
-module.exports = mongoose.model('ImagePost');
+module.exports = {
+    ImagePost: mongoose.model('ImagePost'),
+    imagePostSchema
+};

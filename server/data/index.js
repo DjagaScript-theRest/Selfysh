@@ -7,7 +7,7 @@ const path = require('path');
 module.exports = function () {
 
     let User = require('../models/user-model');
-    let ImagePost = require('../models/image-post-model');
+    let { ImagePost } = require('../models/image-post-model');
     let models = { User, ImagePost };
     let data = {};
 
