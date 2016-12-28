@@ -3,8 +3,11 @@
 'use strict';
 
 const mongoose = require('mongoose');
+
 const encryption = require('../utilities/encryption');
 const fieldsValidator = require('./utils/validator');
+
+const ImagePost = require('./image-post-model');
 
 const MinUsernameLength = 3;
 const MaxUsernameLength = 20;
@@ -42,24 +45,19 @@ const userSchema = new mongoose.Schema({
     },
     salt: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     avatar: {
         type: String,
         default: '58446e0a2374e32570d0fb06'
     },
-    roles: [String],
-    isDeleted: Boolean,
-    newsfeed: [{}]
+    imagePosts: [{ ImagePost }]
 });
 
 userSchema.virtual('fullname').get(function () {
     let fullname = `${this.firstname} ${this.lastname}`;
     return fullname;
-});
-
-userSchema.virtual('isAdmin').get(function () {
-    return hasRole(this, 'admin');
 });
 
 userSchema.method({
@@ -75,18 +73,6 @@ userSchema.method({
 });
 
 userSchema.method({
-    assignRole: function (role) {
-        let roleToLower = role.toLowerCase();
-        if (!hasRole(this, roleToLower)) {
-            this.roles.push(roleToLower);
-        }
-    },
-    removeRole: function (role) {
-        let roleToLower = role.toLowerCase();
-        if (hasRole(this, roleToLower)) {
-            this.roles.splice(this.roles.indexOf(roleToLower), 1);
-        }
-    },
     generatePassHash: function (password) {
         let inputHashedPassword = encryption.generateHashedPassword(this.salt, password);
         return inputHashedPassword;
