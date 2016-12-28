@@ -18,6 +18,10 @@ const authorSchema = mongoose.Schema({
 });
 
 const imagePostSchema = mongoose.Schema({
+    title: {
+        type: String,
+        required: true
+    },
     image: {
         type: imageSchema,
         required: true
