@@ -64,9 +64,9 @@ module.exports = (models) => {
                 });
             });
         },
-        getImagePostsByUserId(id) {
+        getImagePostsByUsername(username) {
             return new Promise((resolve, reject) => {
-                this.filterUsers({ _id: id })
+                this.filterUsers({ username })
                     .then((users) => {
                         let user = users[0];
                         resolve(user.imagePosts);
