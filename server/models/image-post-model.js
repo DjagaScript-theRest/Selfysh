@@ -17,15 +17,24 @@ const authorSchema = mongoose.Schema({
     }
 });
 
-const imagePostSchema = mongoose.Schema({
+let imagePostSchema = mongoose.Schema({
     title: {
         type: String,
         required: true
     },
-    image: {
-        type: imageSchema,
+    createdOn: {
+        type: Date,
         required: true
     },
+    //Just for now, image is url from www
+    imageUrl: {
+        type: String,
+        required: true
+    },
+    // image: {
+    //     type: imageSchema,
+    //     required: true
+    // },
     author: {
         type: authorSchema,
         required: true
@@ -33,6 +42,13 @@ const imagePostSchema = mongoose.Schema({
     likes: {
         type: Number,
         default: 0
+    },
+    dislikes: {
+        type: Number,
+        default: 0
+    },
+    comments: {
+        type: String[]
     },
     category: {
         type: String,

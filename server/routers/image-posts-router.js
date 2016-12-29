@@ -9,5 +9,5 @@ module.exports = function ({ app, controllers }) {
         .get('/category/:category', imagePostsController.getByCategory)
         .get('/:title', imagePostsController.getByTitle);
 
-    app.use('/api/image-posts', router);
+    app.use('/api/posts', router);
 };
