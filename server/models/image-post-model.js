@@ -48,7 +48,7 @@ let imagePostSchema = mongoose.Schema({
         default: 0
     },
     comments: {
-        type: String[]
+        type: [String]
     },
     category: {
         type: String,
