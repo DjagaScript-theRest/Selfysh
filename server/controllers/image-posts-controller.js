@@ -2,8 +2,18 @@
 
 module.exports = function ({ data }) {
     return {
+        getAll(req, res) {
+            data.getAllPosts()
+                .then((posts) => {
+                    console.log(posts);
+                    res.status(200).json(posts);
+                }, (error) => {
+                    res.status(404).json(error);
+                });
+        },
         getByCategory(req, res) {
-            let category = req.params[0];
+            //TODO
+            let category = 'bitches';
             if (!category) {
                 category = '';
             }

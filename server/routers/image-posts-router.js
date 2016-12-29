@@ -6,7 +6,8 @@ module.exports = function ({ app, controllers }) {
     const imagePostsController = controllers['image-posts'];
 
     router
-        .get('/category/:category', imagePostsController.getByCategory)
+        .get('/', imagePostsController.getAll)
+        .get('/:category', imagePostsController.getByCategory)
         .get('/:title', imagePostsController.getByTitle);
 
     app.use('/api/posts', router);
