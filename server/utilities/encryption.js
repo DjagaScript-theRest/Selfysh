@@ -12,7 +12,6 @@ module.exports = {
         const userInfo = decoded._doc;
         let user = {
             username: userInfo.username
-            // add more info if you need it
         };
 
         return user;

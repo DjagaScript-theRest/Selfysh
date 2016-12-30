@@ -4,37 +4,10 @@ const jwt = require('jsonwebtoken');
 module.exports = function ({data, encryption, passport}) {
     return {
         login(req, res, next) {
-            // passport.authenticate('jwt', (err, user, info) => {
-            //     if (err) {
-            //         return next(err);
-            //     }
-            //     if (!user) {
-            //         return res.status(401).json({
-            //             success: false,
-            //             message: 'Invalid username or password'
-            //         });
-            //     }
-            //     req.logIn(user, function (err) {
-            //         if (err) {
-            //             return next(err);
-            //         }
-
-            //         let token = jwt.sign(user, 'magicstring', {
-            //             expiresIn: 7200 // 2 hours in seconds
-            //         });
-            //         return res.status(200).json({
-            //             success: true,
-            //             message: `User ${user.username} logged in succesfully`,
-            //             token: 'JWT ' + token
-            //         });
-            //     });
-            // })(req, res, next);
             let username = req.body.username;
             let password = req.body.password;
-            console.log(username, password);
             data.getByUsername(username)
                 .then(user => {
-                    console.log(user);
                     if (user === null || !user.authenticate(password)) {
                         res.status(401).json({
                             succes: 'false',

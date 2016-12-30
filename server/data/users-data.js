@@ -33,10 +33,21 @@ module.exports = (models) => {
                 });
             });
         },
-        getUserByUsername(username) {
+        getByUsername(username) {
             return new Promise((resolve, reject) => {
                 User.findOne({ username: username }, (err, user) => {
 
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
+        getByEmail(email) {
+            return new Promise((resolve, reject) => {
+                User.findOne({ email }, (err, user) => {
                     if (err) {
                         return reject(err);
                     }
@@ -73,7 +84,7 @@ module.exports = (models) => {
                     }, (error) => {
                         reject(error);
                     });
-            })
+            });
         }
     };
 };
