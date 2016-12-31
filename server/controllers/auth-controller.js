@@ -94,9 +94,9 @@ module.exports = function ({data, encryption, passport}) {
             const token = req.headers.authorization;
             if (token) {
                 let user = encryption.deciferToken(token);
-                res.status(200).json(user);
+                res.status(200).json({success:true, user});
             } else {
-                res.status(401).json({
+                res.status(203).json({
                     success: false,
                     message: 'Please provide token'
                 });

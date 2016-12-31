@@ -14,6 +14,11 @@ module.exports = function ({ data }) {
                 }, (error) => {
                     res.status(404).json(error);
                 });
+        },
+        getUserById(req, res) {
+            let id = req.params.id;
+            data.getUserById(id)
+            .then(result => res.status(200).json(result));
         }
     };
 };
