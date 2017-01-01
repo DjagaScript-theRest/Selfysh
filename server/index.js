@@ -1,25 +1,30 @@
 'use strict';
 
 const express = require('express');
-
+const multer = require('multer');
 const app = express();
 const stage = process.env.NODE_ENV || 'development';
 const config = require('./config/config')[stage];
 const passport = require('passport');
 const database = require('./config/database')(config);
 const data = require('./data')();
-const cors = require('cors');
-app.use(cors());
-// const storage = multer.memoryStorage();
-// const auth = require('./server/config/auth');
-// const upload = multer({ storage: storage });
+
 const encryption = require('./utilities/encryption');
-// const userMiddleware = require('./server/middlewares/user-middleware');
+
+let upload = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, './uploads');
+        },
+        filename: function (req, file, cb) {
+            var datetimestamp = Date.now();
+            cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+        }
+    })
+}).single('file');
 
 require('./config/express')(config, app);
 const controllers = require('./controllers')({ app, encryption, data, passport });
-require('./routers')({ app, controllers, passport });
-
-
+require('./routers')({ app, controllers, passport, upload });
 
 app.listen(config.port, () => console.log('Server running at port : ' + config.port));
