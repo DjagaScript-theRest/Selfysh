@@ -3,8 +3,7 @@
 const express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    session = require('express-session'),
-    path = require('path');
+    session = require('express-session');
 
 module.exports = function (config, app) {
     app.use('/static', express.static(config.rootPath + '/public'));
@@ -21,10 +20,10 @@ module.exports = function (config, app) {
     }));
 
     app.use(function (req, res, next) {
-        res.header('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'POST, PUT, OPTIONS, DELETE, GET');
+        res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-        res.setHeader('Access-Control-Allow-Credentials', true);
+        res.header('Access-Control-Allow-Credentials', true);
         next();
     });
 
