@@ -16,7 +16,7 @@ module.exports = {
             avatar: userInfo.avatar,
             imagePosts: userInfo.imagePosts,
             subscribers: userInfo.subscribers,
-            subscribed: userInfo.subscribeds
+            subscribed: userInfo.subscribed
         };
 
         return user;
