@@ -4,11 +4,11 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function ({ app, controllers, passport, upload }) {
+module.exports = function ({ app, controllers, passport, upload, auth }) {
 
     fs.readdirSync(__dirname)
         .filter(x => x.includes('-router'))
         .forEach(file => {
-            require(path.join(__dirname, file))({ app, controllers, passport, upload });
+            require(path.join(__dirname, file))({ app, controllers, passport, upload, auth });
         });
 };

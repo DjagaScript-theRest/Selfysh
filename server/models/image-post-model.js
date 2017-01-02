@@ -4,18 +4,12 @@ const mongoose = require('mongoose');
 
 const { imageSchema } = require('./image-model');
 
-// const authorSchema = mongoose.Schema({
-//     username: {
-//         id: {
-//             type: String,
-//             required: true
-//         },
-//         username: {
-//             type: String,
-//             required: true
-//         }
-//     }
-// });
+const authorSchema = mongoose.Schema({
+    username: {
+        type: String,
+        required: true
+    }
+});
 
 let imagePostSchema = mongoose.Schema({
     title: {
@@ -23,27 +17,27 @@ let imagePostSchema = mongoose.Schema({
         required: true
     },
     createdOn: {
-        type: Date,
-        required: true
+        type: Date
+        // required: true
     },
     //Just for now, image is url from www
     imageUrl: {
-        type: String,
-        required: true
+        type: String
+        // required: true
     },
     image: {
         type: imageSchema,
         required: true
     },
-    author: {
-        type: String,
-        required: true
-    },
     // author: {
-    //     type: authorSchema,
+    //     type: String,
     //     required: true
     // },
-    likes: { 
+    author: {
+        type: authorSchema,
+        required: true
+    },
+    likes: {
         type: Number,
         default: 0
     },

@@ -18,7 +18,14 @@ module.exports = function ({ data }) {
         getUserById(req, res) {
             let id = req.params.id;
             data.getUserById(id)
-            .then(result => res.status(200).json(result));
+                .then(result => res.status(200).json(result));
+        },
+        addPost(req, res) {
+            let username = req.params.username;
+            let post = req.body;
+
+            data.addUserPost(username, post)
+                .then((post) => res.status(201).json(post));
         }
     };
 };

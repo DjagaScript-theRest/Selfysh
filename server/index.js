@@ -8,8 +8,8 @@ const config = require('./config/config')[stage];
 const passport = require('passport');
 const database = require('./config/database')(config);
 const data = require('./data')();
-
 const encryption = require('./utilities/encryption');
+const auth = require('./config/auth')(encryption);
 
 let upload = multer({
     storage: multer.diskStorage({
@@ -25,6 +25,6 @@ let upload = multer({
 
 require('./config/express')(config, app);
 const controllers = require('./controllers')({ app, encryption, data, passport });
-require('./routers')({ app, controllers, passport, upload });
+require('./routers')({ app, controllers, passport, upload, auth });
 
 app.listen(config.port, () => console.log('Server running at port : ' + config.port));
