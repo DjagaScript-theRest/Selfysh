@@ -46,9 +46,15 @@ const userSchema = new mongoose.Schema({
     },
     avatar: {
         type: String,
-        default: '58446e0a2374e32570d0fb06'
+        default: 'test.gif'
     },
-    imagePosts: [imagePostSchema]
+    imagePosts: [imagePostSchema],
+    subscribers: [],
+    subscribed: [],
+    cover: {
+        type: String,
+        default: 'defaultCover.jpg'
+    }
 });
 
 userSchema.virtual('fullname').get(function () {

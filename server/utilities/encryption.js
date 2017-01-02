@@ -12,7 +12,12 @@ module.exports = {
         const userInfo = decoded._doc;
         console.log(userInfo);
         let user = {
-            username: userInfo.username
+            username: userInfo.username,
+            avatar: userInfo.avatar,
+            imagePosts: userInfo.imagePosts,
+            subscribers: userInfo.subscribers,
+            subscribed: userInfo.subscribed,
+            cover: userInfo.cover
         };
 
         return user;
