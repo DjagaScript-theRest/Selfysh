@@ -85,6 +85,18 @@ module.exports = (models) => {
                         reject(error);
                     });
             });
+        },
+        updateSettings(id, settings) {
+            return new Promise((resolve, reject) => {
+                this.getUserById(id)
+                    .then(user => {
+                        user.passHash = settings.passHash || user.passHash;
+                        user.fullname = settings.fullname || user.fullname;
+
+                        user.save();
+                        resolve({ 'message': 'Settings updated succefully!' });
+                    });
+            });
         }
     };
 };
