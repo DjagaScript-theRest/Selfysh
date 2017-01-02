@@ -50,7 +50,11 @@ const userSchema = new mongoose.Schema({
     },
     imagePosts: [imagePostSchema],
     subscribers: [],
-    subscribed: []
+    subscribed: [],
+    cover: {
+        type: String,
+        default: 'defaultCover.jpg'
+    }
 });
 
 userSchema.virtual('fullname').get(function () {
