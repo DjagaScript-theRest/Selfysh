@@ -31,10 +31,10 @@ let imagePostSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    // image: {
-    //     type: imageSchema,
-    //     required: true
-    // },
+    image: {
+        type: imageSchema,
+        required: true
+    },
     author: {
         type: String,
         required: true
@@ -43,7 +43,7 @@ let imagePostSchema = mongoose.Schema({
     //     type: authorSchema,
     //     required: true
     // },
-    likes: {
+    likes: { 
         type: Number,
         default: 0
     },
