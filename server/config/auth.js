@@ -1,15 +1,19 @@
 const passport = require('passport');
 
-module.exports = {
-    isAuthenticated: (req, res, next) => {
-        if (req.isAuthenticated()) {
-            next();
-        } else {
-            res.status(401).json({
-                succes: false,
-                message: 'Please log in '
-            });
+module.exports = function (encryption) {
+    return {
+        isAuthenticated: (req, res, next) => {
+            const token = req.headers.authorization;
+            const user = encryption.deciferToken(token);
+            if (user.username) {
+                next();
+            } else {
+                res.status(401).json({
+                    succes: false,
+                    message: 'Please log in '
+                });
+            }
         }
-    }
 
+    };
 };
