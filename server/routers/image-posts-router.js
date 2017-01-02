@@ -18,6 +18,7 @@ module.exports = function ({ app, controllers, upload }) {
         })
         .get('/', imagePostsController.getAll)
         .get('/:category', imagePostsController.getByCategory)
+        .post('/:id', imagePostsController.addComment)
         .get('/:title', imagePostsController.getByTitle);
 
     app.use('/api/posts', router);
