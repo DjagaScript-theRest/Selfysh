@@ -12,8 +12,7 @@ module.exports = function ({ data }) {
                 });
         },
         getByCategory(req, res) {
-            //TODO
-            let category = 'bitches';
+            let category = req.params.category;
             if (!category) {
                 category = '';
             }
