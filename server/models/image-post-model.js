@@ -25,10 +25,10 @@ let imagePostSchema = mongoose.Schema({
         type: String
         // required: true
     },
-    image: {
-        type: imageSchema,
-        required: true
-    },
+    // image: {
+    //     type: imageSchema,
+    //     required: true
+    // },
     // author: {
     //     type: String,
     //     required: true

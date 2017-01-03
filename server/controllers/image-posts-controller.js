@@ -47,7 +47,12 @@ module.exports = function ({ data }) {
                 });
         },
         addComment(req, res) {
-            console.log('Comment added');
+            let commentContent = req.body.comment;
+            let id = req.params.id;
+            data.createComment(commentContent, id)
+                .then(() => {
+                    console.log('success');
+                });
         }
     };
 };

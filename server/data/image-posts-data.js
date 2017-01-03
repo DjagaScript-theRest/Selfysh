@@ -67,6 +67,24 @@ module.exports = function ({ ImagePost }) {
                     return resolve(imagePost);
                 });
             });
+        }, 
+         getPostById(id) {
+            return new Promise((resolve, reject) => {
+                ImagePost.findOne({ _id: id }, (err, post) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(post);
+                });
+            });
+        },
+        createComment(comment, id) {
+            return this.getPostById(id)
+                .then((post) => {
+                    post.comments.push(comment);
+                    post.save();
+                });
         }
     };
 }
