@@ -38,7 +38,7 @@ module.exports = function ({ data, encryption }) {
             let userId = user.id;
             let salt = user.salt;
             console.log(userId);
-            let newPassword =req.body.newPassword.toString();
+            let newPassword = req.body.newPassword.toString();
             let passHash = encryption.generateHashedPassword(salt, newPassword);
             let name = req.body.firstName + ' ' + req.body.lastName;
             let settings = {

@@ -28,6 +28,7 @@ module.exports = function ({ app, controllers, upload, auth }) {
             });
         })
         .get('/', imagePostsController.getAll)
+        .post('/:id/vote', imagePostsController.like)
         .get('/:category', imagePostsController.getByCategory)
         .post('/:id', imagePostsController.addComment)
         .get('/:title', imagePostsController.getByTitle);

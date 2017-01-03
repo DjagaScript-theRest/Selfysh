@@ -41,17 +41,14 @@ let imagePostSchema = mongoose.Schema({
         type: Number,
         default: 0
     },
-    dislikes: {
-        type: Number,
-        default: 0
-    },
     comments: {
         type: [String]
     },
     category: {
         type: String,
         required: true
-    }
+    },
+    usersLiked: [String]
 });
 
 mongoose.model('ImagePost', imagePostSchema);

@@ -53,6 +53,16 @@ module.exports = function ({ data }) {
                 .then(() => {
                     console.log('success');
                 });
+        },
+        like(req, res) {
+            let postId = req.params.id;
+            let username = req.body.username;
+            data.likePost(postId, username)
+                .then((result) => {
+                    res.status(201).json(result);
+                }, (error) => {
+                    res.json(error);
+                })
         }
     };
 };

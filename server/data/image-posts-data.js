@@ -53,9 +53,9 @@ module.exports = function ({ ImagePost }) {
                     username: data.author
                 },
                 likes: data.likes,
-                dislikes: data.dislikes,
                 comments: [],
-                category: data.category
+                category: data.category,
+                usersLiked: []
             });
 
             return new Promise((resolve, reject) => {
@@ -67,8 +67,8 @@ module.exports = function ({ ImagePost }) {
                     return resolve(imagePost);
                 });
             });
-        }, 
-         getPostById(id) {
+        },
+        getPostById(id) {
             return new Promise((resolve, reject) => {
                 ImagePost.findOne({ _id: id }, (err, post) => {
                     if (err) {
@@ -85,6 +85,22 @@ module.exports = function ({ ImagePost }) {
                     post.comments.push(comment);
                     post.save();
                 });
+        },
+        likePost(id, username) {
+            return new Promise((resolve, reject) => {
+                this.getPostById(id)
+                    .then((post) => {
+                        post.likes++;
+                        post.usersLiked.push(username)
+                        post.save();
+
+                        resolve({
+                            likes: post.likes
+                        });
+                    }, (error) => {
+                        reject(error);
+                    });
+            })
         }
     };
 }
