@@ -21,14 +21,14 @@ let imagePostSchema = mongoose.Schema({
         // required: true
     },
     //Just for now, image is url from www
-    imageUrl: {
-        type: String
-        // required: true
-    },
-    // image: {
-    //     type: imageSchema,
-    //     required: true
+    // imageUrl: {
+    //     type: String
+    //     // required: true
     // },
+    image: {
+        type: imageSchema,
+        required: true
+    },
     // author: {
     //     type: String,
     //     required: true

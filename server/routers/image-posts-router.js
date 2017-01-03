@@ -15,7 +15,7 @@ module.exports = function ({ app, controllers, upload, auth }) {
                 }
 
                 let filename = req.file.filename;
-                let path = req.file.path;
+                let path = '/static/images';
 
                 res.json({
                     error_code: 0,
