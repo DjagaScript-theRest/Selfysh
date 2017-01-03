@@ -59,6 +59,13 @@ module.exports = function ({ data, encryption }) {
                     });
                 });
 
+        },
+        addPost(req, res) {
+            let username = req.params.username;
+            let post = req.body;
+
+            data.addUserPost(username, post)
+                .then((post) => res.status(201).json(post));
         }
     };
 };

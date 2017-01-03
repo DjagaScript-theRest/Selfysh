@@ -97,6 +97,19 @@ module.exports = (models) => {
                         resolve({ 'message': 'Settings updated succefully!' });
                     });
             });
+        },
+        addUserPost(username, post) {
+            return new Promise((resolve, reject) => {
+                this.getByUsername(username)
+                    .then((user) => {
+                        user.imagePosts.push(post);
+                        user.save();
+                        
+                        return resolve(user);
+                    }, (error) => {
+                        return reject(error);
+                    });
+            });
         }
     };
 };

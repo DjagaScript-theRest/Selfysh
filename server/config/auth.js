@@ -1,5 +1,3 @@
-const passport = require('passport');
-
 module.exports = function (encryption) {
     return {
         isAuthenticated: (req, res, next) => {
@@ -14,6 +12,5 @@ module.exports = function (encryption) {
                 });
             }
         }
-
-    };
+    }
 };

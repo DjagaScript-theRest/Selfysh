@@ -40,6 +40,51 @@ module.exports = function ({ ImagePost }) {
             }
 
             return this.filterImagePosts({ title });
+        },
+        createImagePost(data) {
+            let imagePost = new ImagePost({
+                title: data.title,
+                createOn: data.createdOn,
+                image: {
+                    fileName: data.imageName,
+                    path: data.imagePath
+                },
+                author: {
+                    username: data.author
+                },
+                likes: data.likes,
+                dislikes: data.dislikes,
+                comments: [],
+                category: data.category
+            });
+
+            return new Promise((resolve, reject) => {
+                imagePost.save((err) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(imagePost);
+                });
+            });
+        }, 
+         getPostById(id) {
+            return new Promise((resolve, reject) => {
+                ImagePost.findOne({ _id: id }, (err, post) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(post);
+                });
+            });
+        },
+        createComment(comment, id) {
+            return this.getPostById(id)
+                .then((post) => {
+                    post.comments.push(comment);
+                    post.save();
+                });
         }
     };
 }

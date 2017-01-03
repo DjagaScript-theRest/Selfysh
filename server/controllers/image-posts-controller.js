@@ -8,7 +8,7 @@ module.exports = function ({ data }) {
                     console.log(posts);
                     res.status(200).json(posts);
                 }, (error) => {
-                    res.status(404).json(error);
+                    res.status(400).json(error);
                 });
         },
         getByCategory(req, res) {
@@ -21,7 +21,7 @@ module.exports = function ({ data }) {
                 .then((posts) => {
                     res.status(200).json(posts);
                 }, (error) => {
-                    res.status(404).json(error);
+                    res.status(400).json(error);
                 });
         },
         getByTitle(req, res) {
@@ -34,7 +34,24 @@ module.exports = function ({ data }) {
                 .then((posts) => {
                     res.status(200).json(posts);
                 }, (error) => {
-                    res.status(404).json(error);
+                    res.status(400).json(error);
+                });
+        },
+        create(req, res) {
+            let post = req.body;
+            data.createImagePost(post)
+                .then((post) => {
+                    res.status(201).json(post);
+                }, (error) => {
+                    res.status(400).json(error);
+                });
+        },
+        addComment(req, res) {
+            let commentContent = req.body.comment;
+            let id = req.params.id;
+            data.createComment(commentContent, id)
+                .then(() => {
+                    console.log('success');
                 });
         }
     };
