@@ -14,7 +14,7 @@ const auth = require('./config/auth')(encryption);
 let upload = multer({
     storage: multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, './uploads');
+            cb(null, config.rootPath + '/public/uploads');
         },
         filename: function (req, file, cb) {
             var datetimestamp = Date.now();
