@@ -104,6 +104,7 @@ module.exports = (models) => {
                     .then((user) => {
                         user.imagePosts.push(post);
                         user.save();
+                        
                         return resolve(user);
                     }, (error) => {
                         return reject(error);
