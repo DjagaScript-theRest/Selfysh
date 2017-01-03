@@ -45,7 +45,7 @@ module.exports = function ({ data, encryption }) {
                 passHash,
                 name
             };
-
+            console.log('stigam li do data');
             data.updateSettings(userId, settings)
                 .then(() => {
                     res.status(201).json({

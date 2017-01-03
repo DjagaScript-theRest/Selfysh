@@ -9,7 +9,7 @@ module.exports = {
 
         let decoded = jwt.decode(token.split(' ')[1], 'sheit');
         const userInfo = decoded._doc;
-        console.log(userInfo);
+      //  console.log(userInfo);
         let user = {
             username: userInfo.username,
             avatar: userInfo.avatar,
