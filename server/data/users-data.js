@@ -104,12 +104,26 @@ module.exports = (models) => {
                     .then((user) => {
                         user.imagePosts.push(post);
                         user.save();
-                        
+
                         return resolve(user);
                     }, (error) => {
                         return reject(error);
                     });
             });
+        },
+        updateAvatar(id, filename) {
+            return new Promise((resolve, reject) => {
+                this.getUserById(id)
+                    .then(user => {
+                        console.log(user);
+                        console.log(filename)
+                        user.avatar = filename || user.avatar;
+
+                        user.save();
+                        resolve({ 'message': 'Settings updated succefully!' });
+                    });
+            });
+
         }
     };
 };

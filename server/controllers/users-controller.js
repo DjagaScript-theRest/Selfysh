@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function ({ data, encryption }) {
+module.exports = function ({ data, encryption, upload }) {
     return {
         getImagePosts(req, res) {
             let username = req.body.username;
@@ -37,15 +37,16 @@ module.exports = function ({ data, encryption }) {
 
             let userId = user.id;
             let salt = user.salt;
-            console.log(userId);
-            let newPassword =req.body.newPassword.toString();
+
+            let newPassword = req.body.newPassword.toString();
             let passHash = encryption.generateHashedPassword(salt, newPassword);
             let name = req.body.firstName + ' ' + req.body.lastName;
+
             let settings = {
                 passHash,
                 name
             };
-            console.log('stigam li do data');
+
             data.updateSettings(userId, settings)
                 .then(() => {
                     res.status(201).json({
@@ -60,6 +61,34 @@ module.exports = function ({ data, encryption }) {
                 });
 
         },
+        updateAvatar(req, res) {
+            console.log(req.file);
+            upload(req, res, function (err) {
+                if (err) {
+                    res.json({ error_code: 1, err_desc: err });
+                    return;
+                }
+                console.log(req.file);
+                let filename = req.file.filename;
+                data.updateAvatar(req.params.id, filename)
+                    .then(() => {
+                        res.status(200)
+                            .json({
+                                success: true,
+                                message: 'Avatar updated'
+                            });
+                    })
+                    .catch(() => {
+                        res.status(203).json({
+                            success: false,
+                            message: 'An error occured while updating!'
+                        });
+
+                    });
+            });
+
+        },
+
         addPost(req, res) {
             let username = req.params.username;
             let post = req.body;
