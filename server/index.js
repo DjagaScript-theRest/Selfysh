@@ -24,7 +24,7 @@ let upload = multer({
 }).single('file');
 
 require('./config/express')(config, app);
-const controllers = require('./controllers')({ app, encryption, data, passport });
+const controllers = require('./controllers')({ app, encryption, data, passport, upload });
 require('./routers')({ app, controllers, passport, upload, auth });
 
 app.listen(config.port, () => console.log('Server running at port : ' + config.port));
