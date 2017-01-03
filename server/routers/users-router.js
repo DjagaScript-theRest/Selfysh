@@ -8,7 +8,7 @@ module.exports = function ({  app, controllers }) {
     router
         .get('/image-posts', usersController.getImagePosts)
         .get('/user/:id', usersController.getUserById)
-        .put('user/:id',usersController.updateSettings);
+        .put('/user/:id',usersController.updateSettings);
 
     app.use('/api/users', router);
 };
