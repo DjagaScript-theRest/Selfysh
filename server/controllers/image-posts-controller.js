@@ -5,7 +5,6 @@ module.exports = function ({ data }) {
         getAll(req, res) {
             data.getAllPosts()
                 .then((posts) => {
-                    console.log(posts);
                     res.status(200).json(posts);
                 }, (error) => {
                     res.status(400).json(error);

@@ -6,7 +6,7 @@ module.exports = {
      development: {
         rootPath: rootPath,
         //
-        connectionString: 'mongodb://localhost/inDaGame',
+        connectionString: 'mongodb://Admin:123456789@ds151018.mlab.com:51018/selfysh',
         // 'localhost:27017'
         port: PORT,
         secret: 'sheit'

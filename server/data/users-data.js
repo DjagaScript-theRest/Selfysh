@@ -115,8 +115,6 @@ module.exports = (models) => {
             return new Promise((resolve, reject) => {
                 this.getUserById(id)
                     .then(user => {
-                        console.log(user);
-                        console.log(filename)
                         user.avatar = filename || user.avatar;
 
                         user.save();

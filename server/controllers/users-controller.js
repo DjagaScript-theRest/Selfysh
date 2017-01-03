@@ -62,13 +62,11 @@ module.exports = function ({ data, encryption, upload }) {
 
         },
         updateAvatar(req, res) {
-            console.log(req.file);
             upload(req, res, function (err) {
                 if (err) {
                     res.json({ error_code: 1, err_desc: err });
                     return;
                 }
-                console.log(req.file);
                 let filename = req.file.filename;
                 data.updateAvatar(req.params.id, filename)
                     .then(() => {
