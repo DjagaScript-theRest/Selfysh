@@ -9,7 +9,7 @@ module.exports = function ({  app, controllers, auth }) {
         .post('/:username/image-posts', auth.isAuthenticated, usersController.addPost)
         .get('/image-posts', usersController.getImagePosts) // TODO: Check
         .get('/user/:id', usersController.getUserById)
-        .put('user/:id', usersController.updateSettings);
+        .put('/user/:id', usersController.updateSettings);
 
     app.use('/api/users', router);
 };

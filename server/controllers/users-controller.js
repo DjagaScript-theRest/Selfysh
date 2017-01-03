@@ -33,19 +33,19 @@ module.exports = function ({ data, encryption }) {
                     message: 'Please provide token'
                 });
             }
-
             let user = encryption.deciferToken(token);
-            let userId = user._id;
-            let salt = user.salt;
-            let newPassword = req.body.newPassword;
-            let passHash = encryption.generateHashedPassword(salt, newPassword);
-            let fullname = req.body.firstName + ' ' + req.body.lastName;
 
+            let userId = user.id;
+            let salt = user.salt;
+            console.log(userId);
+            let newPassword =req.body.newPassword.toString();
+            let passHash = encryption.generateHashedPassword(salt, newPassword);
+            let name = req.body.firstName + ' ' + req.body.lastName;
             let settings = {
                 passHash,
-                fullname
+                name
             };
-
+            console.log('stigam li do data');
             data.updateSettings(userId, settings)
                 .then(() => {
                     res.status(201).json({

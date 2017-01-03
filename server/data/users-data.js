@@ -91,7 +91,7 @@ module.exports = (models) => {
                 this.getUserById(id)
                     .then(user => {
                         user.passHash = settings.passHash || user.passHash;
-                        user.fullname = settings.fullname || user.fullname;
+                        user.name = settings.name || user.name;
 
                         user.save();
                         resolve({ 'message': 'Settings updated succefully!' });
