@@ -45,6 +45,9 @@ module.exports = function ({ data }) {
                 }, (error) => {
                     res.status(400).json(error);
                 });
+        },
+        addComment(req, res) {
+            console.log('Comment added');
         }
     };
 };

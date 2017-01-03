@@ -8,7 +8,8 @@ module.exports = function ({  app, controllers, auth }) {
     router
         .get('/image-posts', usersController.getImagePosts) // TODO: Check
         .post('/:username/image-posts', auth.isAuthenticated, usersController.addPost)
-        .get('/user/:id', usersController.getUserById);
+        .get('/user/:id', usersController.getUserById)
+        .put('user/:id',usersController.updateSettings);
 
     app.use('/api/users', router);
 };
