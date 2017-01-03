@@ -48,8 +48,13 @@ module.exports = function ({ data }) {
         },
         addComment(req, res) {
             let commentContent = req.body.comment;
+            let commentUser = req.body.userUsername;
+            let comment = {
+                commentUser,
+                commentContent
+            }
             let id = req.params.id;
-            data.createComment(commentContent, id)
+            data.createComment(comment, id)
                 .then(() => {
                     console.log('success');
                 });
