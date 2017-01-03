@@ -95,6 +95,39 @@ module.exports = function ({ data, encryption, upload }) {
 
             data.addUserPost(username, post)
                 .then((post) => res.status(201).json(post));
+        },
+        subscribe(req, res) {
+            let subscribedId = req.params.id;
+            if (req.body === null || typeof (req.body) === 'undefined') {
+                res.status(401).json({ success: false, message: 'request body is empty' });
+                return;
+            }
+
+            const token = req.headers.authorization;
+            if (!token) {
+                res.status(203).json({
+                    success: false,
+                    message: 'Please provide token'
+                });
+            }
+            let user = encryption.deciferToken(token);
+
+            data.subscribe(subscribedId, user.id)
+                .then(() => {
+                    res.status(200)
+                        .json({
+                            success: true,
+                            message: 'Subscribed!'
+                        });
+                })
+                .catch(() => {
+                    res.status(203).json({
+                        success: false,
+                        message: 'An error occured while updating!'
+                    });
+
+                });
+
         }
     };
 };

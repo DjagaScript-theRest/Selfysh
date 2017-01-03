@@ -124,6 +124,22 @@ module.exports = (models) => {
                     });
             });
 
+        },
+        subscribe(subscribedId, subscriberId) {
+            return new Promise((resolve, reject) => {
+                Promise.all([this.getUserById(subscribedId), this.getUserById(subscriberId)])
+                    .then(([subscribed, subscriber]) => {
+                        subscribed.subscribers.push({ id: subscriber._id, username: subscriber.username });
+                        subscriber.subscribed.push({ id: subscribed._id, username: subscribed.username });
+
+                        subscribed.save();
+                        subscriber.save();
+
+                        resolve({ 'message': 'Subscribed!' });
+
+                    });
+
+            })
         }
     };
 };
